@@ -11,7 +11,9 @@ package com.ssc.fastec.example;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ssc.latte_core.delegate.LatteDelegate;
 import com.ssc.latte_core.net.RestClient;
@@ -28,16 +30,18 @@ public class ExampleDelagete extends LatteDelegate{
     @Override
     public void onBindView(@Nullable Bundle saveInstanceState, View rootView) {
 
+        testRestClient();
     }
 
     private void testRestClient(){
         RestClient.builder()
-                .url("")
-                .params("", "")
+                .url("http://news.baidu.com/")
+                //.params("", "")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-
+                        //Toast.makeText(getContext(), response,Toast.LENGTH_SHORT).show();
+                        Log.i("哈哈哈","哈哈哈");
                     }
                 })
                 .failure(new IFailure() {
@@ -52,6 +56,8 @@ public class ExampleDelagete extends LatteDelegate{
 
                     }
                 })
-                .build();
+                .loader(getContext())
+                .build()
+                .get();
     }
 }
